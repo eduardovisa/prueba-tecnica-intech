@@ -1,109 +1,109 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+// imports -> general
 import { useEffect, useState } from 'react';
+// imports -> functions
 import { useFetch } from '@/utils/api';
-import { SearchResults } from './SearchResults';
+// imports -> components
 import { ResultItem } from './ResultItem';
+import { SearchResults } from './SearchResults';
 
-// useRefs timeout
+const ListContainer = ({ fetchData, label, data, setCurrentElement }) => {
+  return (
+    <div>
+      <div className="title-list">{label}:</div>
+      <hr style={{ paddingBottom: '15px' }} />
+      {fetchData.isLoading && <span>Cargando ${label.toLowerCase()}...</span>}
+      {data ? (
+        <SearchResults data={data} setCurrentElement={setCurrentElement} />
+      ) : (
+        <span>No se encoentró información</span>
+      )}
+    </div>
+  ); // return
+}; // ListContainer
 
+// Main component
 export const SearchBar = () => {
+  // states
   const [searchValue, setSearchValue] = useState('');
   const [albums, setAlbums] = useState(null);
   const [tracks, setTracks] = useState(null);
   const [artist, setArtist] = useState(null);
   const [currentElement, setCurrentElement] = useState(null);
-  const [timeOutId, setTimeOutId] = useState(0);
 
-  const fetchAlbum = useFetch({
+  const fetchAlbums = useFetch({
     params: `method=album.search&album=${searchValue}`,
-  });
-
+  }); // fetchAlbum
   const fetchTracks = useFetch({
     params: `method=track.search&track=${searchValue}`,
-  });
-
+  }); // fetchtTracks
   const fetchArtists = useFetch({
     params: `method=artist.search&artist=${searchValue}`,
-  });
+  }); // fetchArtists
 
-  const handleChange = (e) => {
-    setSearchValue(e.target.value);
-  };
+  // function -> handleChange
+  const handleChange = (e) => setSearchValue(e.target.value);
 
-  const timeMout = () => {
-    return setTimeout(() => {
-      fetchAlbum.fetchData();
-      setAlbums(fetchAlbum.data?.results?.albummatches?.album);
-
-      fetchArtists.fetchData();
-      setArtist(fetchArtists.data?.results?.artistmatches?.artist);
-
-      fetchTracks.fetchData();
-      setTracks(fetchTracks.data?.results?.trackmatches?.track);
-    }, 3000);
-  };
-
+  // useEffect
   useEffect(() => {
-    clearTimeout(timeOutId);
-    setTimeOutId(timeMout());
-    console.log(timeOutId);
+    fetchAlbums.fetchData();
+    setAlbums(fetchAlbums.data?.results?.albummatches?.album);
+
+    fetchArtists.fetchData();
+    setArtist(fetchArtists.data?.results?.artistmatches?.artist);
+
+    fetchTracks.fetchData();
+    setTracks(fetchTracks.data?.results?.trackmatches?.track);
   }, [searchValue]);
 
+  // View
   return (
     <div>
-      <div className="container">
-        <div>Realizar una búsqueda: </div>
-        <br />
+      <p className="title">| TIntech Prueba Tecnica |</p>
+      <div className="container-header">
+        <p>* Realizar una búsqueda: </p>
         <input
           className="input-search"
           value={searchValue}
           onChange={handleChange}
+          disabled={currentElement}
         />
+
+        {currentElement && (
+          <button
+            className="button-return"
+            onClick={() => setCurrentElement(null)}
+          >
+            Volver
+          </button>
+        )}
       </div>
 
-      {currentElement && (
-        <button onClick={() => setCurrentElement(null)}>Volver</button>
-      )}
-
-      <br />
-
       {!currentElement ? (
-        <div className="main-container">
-          <div>
-            <div>Artistas:</div>
-            {fetchArtists.isLoading && <span>Cargando artistas...</span>}
-            {artist && (
-              <SearchResults
-                data={artist}
-                setCurrentElement={setCurrentElement}
-              />
-            )}
-          </div>
+        <div className="container-content">
+          <ListContainer
+            data={artist}
+            fetchData={fetchArtists}
+            label="Artistas"
+            setCurrentElement={setCurrentElement}
+          />
 
-          <div>
-            <div>Tracks:</div>
-            {fetchTracks.isLoading && <span>Cargando tracks...</span>}
-            {tracks && (
-              <SearchResults
-                data={tracks}
-                setCurrentElement={setCurrentElement}
-              />
-            )}
-          </div>
+          <ListContainer
+            data={albums}
+            fetchData={fetchAlbums}
+            label="Albums"
+            setCurrentElement={setCurrentElement}
+          />
 
-          <div>
-            <div>Album:</div>
-            {fetchAlbum.isLoading && <span>Cargando albums...</span>}
-            {albums && (
-              <SearchResults
-                data={albums}
-                setCurrentElement={setCurrentElement}
-              />
-            )}
-          </div>
+          <ListContainer
+            data={tracks}
+            fetchData={fetchTracks}
+            label="Canciones"
+            setCurrentElement={setCurrentElement}
+          />
         </div>
       ) : (
-        <div className="container">
+        <div className="container-content">
           <ResultItem data={currentElement} />
         </div>
       )}
