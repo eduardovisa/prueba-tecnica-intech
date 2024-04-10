@@ -1,6 +1,8 @@
 import { HomePage } from '@/components/Home';
 
-export const HomeIndex = () => {
+const HomeIndex = () => {
   // View
   return <HomePage />; // view
 }; // return
+
+export default HomeIndex;

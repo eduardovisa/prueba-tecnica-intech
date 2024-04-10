@@ -1,36 +1,22 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Prueba Técnica en React - Buscador de Música con Last.fm API
 
-## Getting Started
+## Objetivo
 
-First, run the development server:
+Crear una aplicación web utilizando React que permita a los usuarios buscar música utilizando la API de Last.fm. La aplicación deberá mostrar los últimos 5 álbumes, canciones y artistas relacionados con la búsqueda realizada.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Cómo clonar el repositorio
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Para clonar este repositorio, sigue estos pasos:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+1. Abre tu terminal.
+2. Navega al directorio donde deseas clonar el repositorio.
+3. Ejecuta el siguiente comando: git clone https://github.com/eduardovisa/prueba-tecnica-intech.git
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Cómo instalar y usar
 
-## Learn More
+Una vez que hayas clonado el repositorio, sigue estos pasos para instalar y usar la aplicación:
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Navega al directorio del repositorio clonado.
+2. Instala las dependencias con el siguiente comando: npm install
+3. Inicia el servidor de desarrollo con el siguiente comando: npm run dev
+4. Abre tu navegador y visita http://localhost:3000 para ver el resultado.
