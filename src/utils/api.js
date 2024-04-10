@@ -3,7 +3,6 @@ import { useState } from 'react';
 export const useFetch = ({ body, headers, params = '' }) => {
   // contants
   const API_KEY = 'fcd492e73eaf5db3fc46164916b00df9';
-  const SECRET_KEY = '755dbc6c47b720bee54298227fb95cb6';
   // states
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
